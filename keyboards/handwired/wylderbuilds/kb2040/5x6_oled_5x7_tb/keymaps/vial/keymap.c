@@ -71,15 +71,34 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //    debug_mouse=true;
 //}
 
-#if defined(ENCODER_MAP_ENABLE)
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
-    [_BASE] =   { ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
-    [_NAV] =  { ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
-    [_SYST] =  { ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
-    [_MOUSE] = { ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
-};
-#endif
 
+#ifdef ENCODER_ENABLE
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    switch(get_highest_layer(layer_state|default_layer_state)) {
+        case _BASE:
+        case _SYST:
+        case _MOUSE:
+            if (index == 0) {
+                if (clockwise) {
+                    tap_code(KC_VOLU);
+                } else {
+                    tap_code(KC_VOLD);
+                }
+            }
+            break;
+        case _NAV:
+            if (index == 0) {
+                if (clockwise) {
+                    tap_code(KC_PGDN);
+                } else {
+                    tap_code(KC_PGUP);
+                }
+            }
+            break;
+    }
+    return false;
+}
+#endif
 
 #ifdef OLED_ENABLE
 bool oled_task_user(void) {

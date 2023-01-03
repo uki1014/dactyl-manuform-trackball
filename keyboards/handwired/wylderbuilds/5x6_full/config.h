@@ -10,8 +10,8 @@
 
 // Using Serial instead of I2C
 #define SERIAL_USART_FULL_DUPLEX 
-#define SERIAL_USART_TX_PIN GP0
-#define SERIAL_USART_RX_PIN GP1
+#define SERIAL_USART_TX_PIN GP16
+#define SERIAL_USART_RX_PIN GP17
 #define SERIAL_PIO_USE_PIO0
 #define SERIAL_USART_TIMEOUT     100  // USART driver timeout. default 100
 #define SERIAL_USART_SPEED 921600

@@ -1,5 +1,5 @@
 #include QMK_KEYBOARD_H
-
+#include "5x6_oled_5x7_tb.h"
 #define _BASE   0
 #define _NAV    1
 #define _SYST   2
@@ -24,7 +24,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                      KC_APP,  KC_LGUI,                                            MO(_NAV),  TG(_MOUSE),
                                                 KC_LALT, LT(_NAV, KC_SPC),          KC_SPC,
                                                 KC_BTN3, KC_BTN1,                   KC_WFWD,
-                                                _______, _______,          _______, KC_WBAK),
+                                                SNIPING, DRGSCRL,          _______, KC_WBAK),
 
     [_NAV] = LAYOUT_5x7(
         // left hand                                                                         // right hand
@@ -71,34 +71,42 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //    debug_mouse=true;
 //}
 
-
-#ifdef ENCODER_ENABLE
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    switch(get_highest_layer(layer_state|default_layer_state)) {
-        case _BASE:
-        case _SYST:
-        case _MOUSE:
-            if (index == 0) {
-                if (clockwise) {
-                    tap_code(KC_VOLU);
-                } else {
-                    tap_code(KC_VOLD);
-                }
-            }
-            break;
-        case _NAV:
-            if (index == 0) {
-                if (clockwise) {
-                    tap_code(KC_PGDN);
-                } else {
-                    tap_code(KC_PGUP);
-                }
-            }
-            break;
-    }
-    return false;
-}
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [_BASE] =   { ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN)  },
+    [_NAV] =  { ENCODER_CCW_CW(RGB_HUD, RGB_HUI)  },
+    [_SYST] =  { ENCODER_CCW_CW(RGB_VAD, RGB_VAI)  },
+    [_MOUSE] = { ENCODER_CCW_CW(RGB_RMOD, RGB_MOD) },
+};
 #endif
+
+//#ifdef ENCODER_ENABLE
+//bool encoder_update_user(uint8_t index, bool clockwise) {
+//    switch(get_highest_layer(layer_state|default_layer_state)) {
+//        case _BASE:
+//        case _SYST:
+//        case _MOUSE:
+//            if (index == 0) {
+//                if (clockwise) {
+//                    tap_code(KC_VOLD);
+//                } else {
+//                    tap_code(KC_VOLU);
+//                }
+//            }
+//            break;
+//        case _NAV:
+//            if (index == 0) {
+//                if (clockwise) {
+//                    tap_code(KC_PGUP);
+//                } else {
+//                    tap_code(KC_PGDN);
+//                }
+//            }
+//            break;
+//    }
+//    return false;
+//}
+//#endif
 
 #ifdef OLED_ENABLE
 bool oled_task_user(void) {

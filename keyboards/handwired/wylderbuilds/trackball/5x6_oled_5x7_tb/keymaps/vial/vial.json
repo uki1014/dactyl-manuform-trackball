@@ -5,6 +5,10 @@
   },
   "layouts": {
     "keymap": [
+      {
+        "name": "Wylderbuilds Asymmetric 5x6_5x7",
+        "author": "https://wylderbuilds.com"
+      },
       [
         {
           "x": 3
@@ -175,8 +179,14 @@
       ],
       [
         {
+          "x": 11.25
+        },
+        "11,3"
+      ],
+      [
+        {
           "r": 7,
-          "y": -4.25,
+          "y": -5.25,
           "x": 6
         },
         "4,4",

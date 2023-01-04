@@ -24,7 +24,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                      KC_APP,  KC_LGUI,                                            MO(_NAV),  TG(_MOUSE),
                                                 KC_LALT, LT(_NAV, KC_SPC),          KC_SPC,
                                                 KC_BTN3, KC_BTN1,                   KC_WFWD,
-                                                SNIPING, DRGSCRL,          _______, KC_WBAK),
+                                                SNIPING, DRGSCRL,          KC_BTN1, KC_WBAK),
 
     [_NAV] = LAYOUT_5x7(
         // left hand                                                                         // right hand

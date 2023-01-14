@@ -39,7 +39,7 @@
 #define RP2040_FLASH_GD25Q64CS
 #define RP2040_FLASH_W25X10CL
 #define RP2040_FLASH_IS25LP080
-#define RP2040_FLASH_GENERIC_03H
+#define RP2040_FLASH_GENERIC_03H`````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````aazzaa```````````````
 
 /* key matrix size */
 // Rows are doubled-up

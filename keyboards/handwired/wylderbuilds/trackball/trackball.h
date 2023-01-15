@@ -20,11 +20,6 @@
 
 //#warning ">>> PREPROCESSOR CHECKING trackball.h"
 
-#if defined(KEYBOARD_handwired_tractyl_manuform_5x6_right)
-#    include "5x6_right.h"
-#elif defined(KEYBOARD_handwired_tractyl_manuform_4x6_right)
-#    include "4x6_right.h"
-#endif
 
 enum charybdis_keycodes {
 #        ifdef VIA_ENABLE

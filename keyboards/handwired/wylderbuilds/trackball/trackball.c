@@ -226,7 +226,7 @@ static void pointing_device_task_charybdis(report_mouse_t* mouse_report) {
 }
 
 report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
-    print("pointing_device_task_kb");
+//    print("pointing_device_task_kb");
     pointing_device_task_charybdis(&mouse_report);
     mouse_report = pointing_device_task_user(mouse_report);
     return mouse_report;

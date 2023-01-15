@@ -21,7 +21,7 @@
 #ifdef CONSOLE_ENABLE
 #    include "print.h"
 #endif  // CONSOLE_ENABLE
-
+#define POINTING_DEVICE_ENABLE
 #ifdef POINTING_DEVICE_ENABLE
 #    ifndef CHARYBDIS_MINIMUM_DEFAULT_DPI
 #        define CHARYBDIS_MINIMUM_DEFAULT_DPI 400
@@ -217,9 +217,10 @@ static void pointing_device_task_charybdis(report_mouse_t* mouse_report) {
 }
 
 report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
-    pointing_device_task_charybdis(&mouse_report);
-    mouse_report = pointing_device_task_user(mouse_report);
-
+    if (is_keyboard_master()) {
+        pointing_device_task_charybdis(&mouse_report);
+        mouse_report = pointing_device_task_user(mouse_report);
+    }
     return mouse_report;
 }
 
@@ -245,7 +246,7 @@ static bool has_shift_mod(void) {
  *   - default DPI: internal table index/actual DPI
  *   - sniping DPI: internal table index/actual DPI
  */
-__attribute__((unused)) static void debug_charybdis_config_to_console(charybdis_config_t* config) {
+static void debug_charybdis_config_to_console(charybdis_config_t* config) {
 #    ifdef CONSOLE_ENABLE
     IGNORE_FORMAT_WARNING(dprintf("(charybdis) process_record_kb: config = {\n"
                                   "\traw = 0x%04X,\n"

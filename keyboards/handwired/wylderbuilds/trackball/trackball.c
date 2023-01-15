@@ -188,49 +188,56 @@ void charybdis_set_pointer_dragscroll_enabled(bool enable) {
  *   - Sniping
  *   - Acceleration
  */
-static void pointing_device_task_charybdis(report_mouse_t* mouse_report) {
-    static int16_t scroll_buffer_x = 0;
-    static int16_t scroll_buffer_y = 0;
-    if (g_charybdis_config.is_dragscroll_enabled) {
-#    ifdef CHARYBDIS_DRAGSCROLL_REVERSE_X
-        scroll_buffer_x -= mouse_report->x;
-#    else
-        scroll_buffer_x += mouse_report->x;
-#    endif  // CHARYBDIS_DRAGSCROLL_REVERSE_X
-#    ifdef CHARYBDIS_DRAGSCROLL_REVERSE_Y
-        scroll_buffer_y -= mouse_report->y;
-#    else
-        scroll_buffer_y += mouse_report->y;
-#    endif  // CHARYBDIS_DRAGSCROLL_REVERSE_Y
-        if (scroll_buffer_x != 0 || scroll_buffer_y != 0) {
-            printf("trackball.c: scroll_buffer_x: %d, scroll_buffer_y: %d\n", scroll_buffer_x, scroll_buffer_y);
-        }
-        mouse_report->x = 0;
-        mouse_report->y = 0;
-        if (abs(scroll_buffer_x) > CHARYBDIS_DRAGSCROLL_BUFFER_SIZE) {
-            mouse_report->h = scroll_buffer_x > 0 ? 1 : -1;
-            scroll_buffer_x = 0;
-            printf("h changed by %d'n", mouse_report->h);
-        }
-        if (abs(scroll_buffer_y) > CHARYBDIS_DRAGSCROLL_BUFFER_SIZE) {
-            mouse_report->v = scroll_buffer_y > 0 ? 1 : -1;
-            scroll_buffer_y = 0;
-            printf("v changed by %d\n", mouse_report->v);
-        }
+//static void pointing_device_task_charybdis(report_mouse_t* mouse_report) {
+//    static int16_t scroll_buffer_x = 0;
+//    static int16_t scroll_buffer_y = 0;
+//    if (g_charybdis_config.is_dragscroll_enabled) {
+//#    ifdef CHARYBDIS_DRAGSCROLL_REVERSE_X
+//        scroll_buffer_x -= mouse_report->x;
+//#    else
+//        scroll_buffer_x += mouse_report->x;
+//#    endif  // CHARYBDIS_DRAGSCROLL_REVERSE_X
+//#    ifdef CHARYBDIS_DRAGSCROLL_REVERSE_Y
+//        scroll_buffer_y -= mouse_report->y;
+//#    else
+//        scroll_buffer_y += mouse_report->y;
+//#    endif  // CHARYBDIS_DRAGSCROLL_REVERSE_Y
+//        if (scroll_buffer_x != 0 || scroll_buffer_y != 0) {
+//            printf("trackball.c: scroll_buffer_x: %d, scroll_buffer_y: %d\n", scroll_buffer_x, scroll_buffer_y);
+//        }
+//        mouse_report->x = 0;
+//        mouse_report->y = 0;
+//        if (abs(scroll_buffer_x) > CHARYBDIS_DRAGSCROLL_BUFFER_SIZE) {
+//            mouse_report->h = scroll_buffer_x > 0 ? 1 : -1;
+//            scroll_buffer_x = 0;
+//            printf("h changed by %d'n", mouse_report->h);
+//        }
+//        if (abs(scroll_buffer_y) > CHARYBDIS_DRAGSCROLL_BUFFER_SIZE) {
+//            mouse_report->v = scroll_buffer_y > 0 ? 1 : -1;
+//            scroll_buffer_y = 0;
+//            printf("v changed by %d\n", mouse_report->v);
+//        }
+//
+//    } else if (!g_charybdis_config.is_sniping_enabled) {
+//        mouse_report->x = DISPLACEMENT_WITH_ACCELERATION(mouse_report->x);
+//        mouse_report->y = DISPLACEMENT_WITH_ACCELERATION(mouse_report->y);
+//    }
+//
+//}
 
-    } else if (!g_charybdis_config.is_sniping_enabled) {
-        mouse_report->x = DISPLACEMENT_WITH_ACCELERATION(mouse_report->x);
-        mouse_report->y = DISPLACEMENT_WITH_ACCELERATION(mouse_report->y);
-    }
-
-}
-
-report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
-//    print("pointing_device_task_kb");
-    pointing_device_task_charybdis(&mouse_report);
-    mouse_report = pointing_device_task_user(mouse_report);
-    return mouse_report;
-}
+//int count = 0;
+//
+//report_mouse_t no_pointing_device_task_kb(report_mouse_t mouse_report) {
+//    if (is_keyboard_master()) {
+//        if (count++ >= 100) {
+//            print("got master pointing_device_task_kb\n");
+//            count = 0;
+//        }
+//        pointing_device_task_charybdis(&mouse_report);
+//        mouse_report = pointing_device_task_user(mouse_report);
+//    }
+//    return mouse_report;
+//}
 
 //report_mouse_t pointing_device_set_shared_report(report_mouse_t mouse_report) {
 //    print("pointing_device_set_shared_report");
@@ -277,7 +284,7 @@ __attribute__((unused)) static void debug_charybdis_config_to_console(charybdis_
 #    endif // CONSOLE_ENABLE
 }
 
-bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
+bool no_process_record_kb(uint16_t keycode, keyrecord_t* record) {
     if (!process_record_user(keycode, record)) {
         return false;
     }

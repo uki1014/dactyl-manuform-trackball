@@ -49,23 +49,76 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         )
 };
 
-report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
-    if (mouse_report.v != 0 || mouse_report.h != 0) {
-        print("keymap.c/pointing_device_task_user(): got mouse report with updated v or h\n");
-//        mouse_report.h = mouse_report.x;
-//        mouse_report.v = mouse_report.y;
-//        mouse_report.x = 0;
-//        mouse_report.y = 0;
+bool drag_scroll = false;
+
+bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
+    if (!process_record_user(keycode, record)) {
+        print("process_record_user() returned false.\n");
+        return false;
     }
-    if (mouse_report.v != 0 || mouse_report.h != 0) {
-        print("keymap.c/pointing_device_task_user(): got mouse report with updated v or h\n");
-        //        mouse_report.h = mouse_report.x;
-        //        mouse_report.v = mouse_report.y;
-        //        mouse_report.x = 0;
-        //        mouse_report.y = 0;
+    bool old_drag = drag_scroll;
+    switch (keycode) {
+        case DRAGSCROLL_MODE:
+            drag_scroll = record->event.pressed;
+            break;
+        case DRAGSCROLL_MODE_TOGGLE:
+            drag_scroll = !drag_scroll;
+            break;
+    }
+
+    if (old_drag != drag_scroll) {
+        printf("Is master: %d -- Setting drag scroll: %d\n", is_keyboard_master(), drag_scroll);
+        if (drag_scroll) {
+            pointing_device_set_cpi(CHARYBDIS_DRAGSCROLL_DPI);
+        } else {
+            pointing_device_set_cpi(CHARYBDIS_DEFAULT_DPI_CONFIG_STEP);
+        }
+    }
+
+    return true;
+}
+
+report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+    if (drag_scroll) {
+        if (mouse_report.x != 0 || mouse_report.y != 0) {
+            printf("master is %d. keymap.c/pointing_device_task_user(): x = %d, y = %d\n", is_keyboard_master(), mouse_report.x, mouse_report.y);
+            mouse_report.h = mouse_report.x;
+            mouse_report.v = mouse_report.y;
+            mouse_report.x = 0;
+            mouse_report.y = 0;
+        }
     }
     return mouse_report;
 }
+
+int count = 0;
+
+report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
+    //    if (is_keyboard_master()) {
+    //        if (count++ >= 100) {
+    //            print("got master pointing_device_task_kb\n");
+
+    //        }
+    //        pointing_device_task_charybdis(&mouse_report);
+    mouse_report = pointing_device_task_user(mouse_report);
+//    }
+    return mouse_report;
+}
+
+//    if (mouse_report.v != 0 || mouse_report.h != 0) {
+//        printf("master is %d. keymap.c/pointing_device_task_user(): h = %d, v = %d\n", is_keyboard_master(), mouse_report.h, mouse_report.v);
+////        mouse_report.h = mouse_report.x;
+////        mouse_report.v = mouse_report.y;
+////        mouse_report.x = 0;
+////        mouse_report.y = 0;
+//    }
+//    if (mouse_report.x != 0 || mouse_report.y != 0) {
+//        printf("master is %d. keymap.c/pointing_device_task_user(): x = %d, y = %d\n", is_keyboard_master(), mouse_report.x, mouse_report.y);
+//        //        mouse_report.h = mouse_report.x;
+//        //        mouse_report.v = mouse_report.y;
+//        //        mouse_report.x = 0;
+//        //        mouse_report.y = 0;
+//    }
 
 //static void pointing_device_task_charybdis(report_mouse_t* mouse_report) {
 //    static int16_t scroll_buffer_x = 0;

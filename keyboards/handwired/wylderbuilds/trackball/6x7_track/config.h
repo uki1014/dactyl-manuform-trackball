@@ -21,6 +21,8 @@
 #define PMW33XX_CS_PIN GP17
 #define POINTING_DEVICE_TASK_THROTTLE_MS 1
 
+#define POINTING_DEVICE_DEBUG
+
 // Using Serial instead of I2C
 #define SERIAL_USART_FULL_DUPLEX
 #define SERIAL_USART_TX_PIN GP0
@@ -39,8 +41,7 @@
 #define RP2040_FLASH_GD25Q64CS
 #define RP2040_FLASH_W25X10CL
 #define RP2040_FLASH_IS25LP080
-#define RP2040_FLASH_GENERIC_03H`````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````aazzaa```````````````
-
+#define RP2040_FLASH_GENERIC_03H
 /* key matrix size */
 // Rows are doubled-up
 #define MATRIX_ROWS 14

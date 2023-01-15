@@ -49,128 +49,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         )
 };
 
-bool drag_scroll = false;
-
-bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
-    if (!process_record_user(keycode, record)) {
-        print("process_record_user() returned false.\n");
-        return false;
-    }
-    bool old_drag = drag_scroll;
-    switch (keycode) {
-        case DRAGSCROLL_MODE:
-            drag_scroll = record->event.pressed;
-            break;
-        case DRAGSCROLL_MODE_TOGGLE:
-            drag_scroll = !drag_scroll;
-            break;
-    }
-
-    if (old_drag != drag_scroll) {
-        printf("Is master: %d -- Setting drag scroll: %d\n", is_keyboard_master(), drag_scroll);
-        if (drag_scroll) {
-            pointing_device_set_cpi(CHARYBDIS_DRAGSCROLL_DPI);
-        } else {
-            pointing_device_set_cpi(CHARYBDIS_DEFAULT_DPI_CONFIG_STEP);
-        }
-    }
-
-    return true;
-}
-
-report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
-    if (drag_scroll) {
-        if (mouse_report.x != 0 || mouse_report.y != 0) {
-            printf("master is %d. keymap.c/pointing_device_task_user(): x = %d, y = %d\n", is_keyboard_master(), mouse_report.x, mouse_report.y);
-            mouse_report.h = mouse_report.x;
-            mouse_report.v = mouse_report.y;
-            mouse_report.x = 0;
-            mouse_report.y = 0;
-        }
-    }
-    return mouse_report;
-}
-
-int count = 0;
-
-report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
-    //    if (is_keyboard_master()) {
-    //        if (count++ >= 100) {
-    //            print("got master pointing_device_task_kb\n");
-
-    //        }
-    //        pointing_device_task_charybdis(&mouse_report);
-    mouse_report = pointing_device_task_user(mouse_report);
-//    }
-    return mouse_report;
-}
-
-//    if (mouse_report.v != 0 || mouse_report.h != 0) {
-//        printf("master is %d. keymap.c/pointing_device_task_user(): h = %d, v = %d\n", is_keyboard_master(), mouse_report.h, mouse_report.v);
-////        mouse_report.h = mouse_report.x;
-////        mouse_report.v = mouse_report.y;
-////        mouse_report.x = 0;
-////        mouse_report.y = 0;
-//    }
-//    if (mouse_report.x != 0 || mouse_report.y != 0) {
-//        printf("master is %d. keymap.c/pointing_device_task_user(): x = %d, y = %d\n", is_keyboard_master(), mouse_report.x, mouse_report.y);
-//        //        mouse_report.h = mouse_report.x;
-//        //        mouse_report.v = mouse_report.y;
-//        //        mouse_report.x = 0;
-//        //        mouse_report.y = 0;
-//    }
-
-//static void pointing_device_task_charybdis(report_mouse_t* mouse_report) {
-//    static int16_t scroll_buffer_x = 0;
-//    static int16_t scroll_buffer_y = 0;
-//    if (g_charybdis_config.is_dragscroll_enabled) {
-//
-//        scroll_buffer_x += mouse_report->x;
-//
-//
-////        scroll_buffer_y -= mouse_report->y;
-//
-//        scroll_buffer_y += mouse_report->y;
-//
-//        if (scroll_buffer_x != 0 || scroll_buffer_y != 0) {
-//            printf("keymap.c:pointing_device_task_charybdis() scroll_buffer_x: %d, scroll_buffer_y: %d\n", scroll_buffer_x, scroll_buffer_y);
-//        }
-//        mouse_report->x = 0;
-//        mouse_report->y = 0;
-//        if (abs(scroll_buffer_x) > 2) {
-//            mouse_report->h = scroll_buffer_x > 0 ? 1 : -1;
-//            scroll_buffer_x = 0;
-//            printf("h changed by %d'n", mouse_report->h);
-//        }
-//        if (abs(scroll_buffer_y) > 2) {
-//            mouse_report->v = scroll_buffer_y > 0 ? 1 : -1;
-//            scroll_buffer_y = 0;
-//            printf("v changed by %d\n", mouse_report->v);
-//        }
-//
-//    }
-//
-//}
-//
-//report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
-//    //    print("pointing_device_task_kb");
-//    pointing_device_task_charybdis(&mouse_report);
-//    mouse_report = pointing_device_task_user(mouse_report);
-//    return mouse_report;
-//}
-
-//report_mouse_t pointing_device_set_shared_report(report_mouse_t mouse_report) {
-//    print("keymap.c/pointing_device_set_shared_report\n");
-////    pointing_device_task_charybdis(&mouse_report);
-////    mouse_report = pointing_device_task_user(mouse_report);
-////    pointing_device_set_shared_report(mouse_report);
-//    return mouse_report;
-//}
-
 void keyboard_post_init_user(void) {
-    // Customise these values to desired behaviour
+#ifdef CONSOLE_ENABLE
     debug_enable=true;
     debug_matrix=true;
     debug_keyboard=true;
     debug_mouse=true;
+#else
+    debug_enable=false;
+    debug_matrix=false;
+    debug_keyboard=false;
+    debug_mouse=false;
+#endif
 }

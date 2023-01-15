@@ -9,7 +9,7 @@
 
 #pragma once
 
-//#include "trackball.h"
+#include "trackball.h"
 #include "quantum.h"
 
 #define XXX KC_NO

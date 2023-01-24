@@ -4,6 +4,11 @@
 #include "config_common.h"
 // Basic Config
 
+#ifndef WYLD_QMK_FIRMWARE_CONFIG_H
+#define WYLD_QMK_FIRMWARE_CONFIG_H
+
+#endif // WYLD_QMK_FIRMWARE_CONFIG_H
+
 //#define PRODUCT_ID 0x0002
 
 #define USE_SERIAL
@@ -13,10 +18,6 @@
 //#define MASTER_RIGHT
 //#define MASTER_LEFT
 
-#define POINTING_DEVICE_INVERT_Y
-#define POINTING_DEVICE_RIGHT
-#define PMW33XX_CS_PIN GP17
-#define POINTING_DEVICE_TASK_THROTTLE_MS 1
 
 // Using Serial instead of I2C
 #define SERIAL_USART_FULL_DUPLEX 
@@ -34,7 +35,7 @@
 /* key matrix size */
 // Columns are doubled-up
 #define MATRIX_ROWS 12
-#define MATRIX_COLS 7
+#define MATRIX_COLS 6
 
 //// TEMP TRY THIS
 //#define MATRIX_COL_PINS { GP2, GP3, GP4, GP5, GP6, GP7, GP8 }
@@ -45,11 +46,11 @@
 #define MATRIX_COL_PINS { GP3, GP4, GP5, GP6, GP7, GP8 }
 #define MATRIX_ROW_PINS { GP10, GP11, GP12, GP13, GP14, GP15 }
 
-#define DIODE_DIRECTION ROW2COL
+#define DIODE_DIRECTION COL2ROW
 
 #define SPLIT_POINTING_ENABLE
 #define ROTATIONAL_TRANSFORM_ANGLE  -25
-#define POINTING_DEVICE_INVERT_Y
+#define POINTING_DEVICE_INVERT_X
 #define POINTING_DEVICE_RIGHT
 #define PMW33XX_CS_PIN GP17
 #define POINTING_DEVICE_TASK_THROTTLE_MS 1

@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                    _______, _______,                                                                 _______,   _______,
                                                         _______, _______,                         _______,
                                                         _______, _______,                         _______,
-                                                        _______, _______,                _______, _______),
+                                                        _______, QK_BOOT,                _______, QK_BOOT),
 
     [_SYST] = LAYOUT_5x6(
         // left hand                                                             // right hand

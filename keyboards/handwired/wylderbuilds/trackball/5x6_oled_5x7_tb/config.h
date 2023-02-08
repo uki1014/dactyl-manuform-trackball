@@ -76,7 +76,7 @@
 //// Sensor Notes ////
 //// Pi Pico pins ////
 // 3V3  -- Power (not 3v3_EN)
-// GP17 -- CS pin
+//   GP17 -- CS pin
 // GP20 -- MISO pin
 // GP19 -- MOSI pin
 // GP18 -- SCK pin clock

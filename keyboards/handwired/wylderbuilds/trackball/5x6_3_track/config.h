@@ -5,13 +5,15 @@
 // Basic Config
 
 //#define PRODUCT_ID 0x0002
+#define BOOTMAGIC_LITE_ROW 0        // TOP RIGHT KEY ON RIGHT SIDE, TOP LEFT KEY ON LEFT SIDE
+#define BOOTMAGIC_LITE_COLUMN 5
 
 #define SPLIT_HAND_PIN      GP26  // high = left, low = right
 
 // Using Serial instead of I2C
 #define SERIAL_USART_FULL_DUPLEX 
-#define SERIAL_USART_TX_PIN GP0
-#define SERIAL_USART_RX_PIN GP1
+#define SERIAL_USART_TX_PIN GP16
+#define SERIAL_USART_RX_PIN GP17
 #define SERIAL_PIO_USE_PIO0
 #define SERIAL_USART_TIMEOUT     100  // USART driver timeout. default 100
 #define SERIAL_USART_SPEED 921600
@@ -30,7 +32,7 @@
 #define ROTATIONAL_TRANSFORM_ANGLE  -25
 #define POINTING_DEVICE_INVERT_Y
 #define POINTING_DEVICE_RIGHT
-#define PMW33XX_CS_PIN GP17
+#define PMW33XX_CS_PIN GP21
 #define POINTING_DEVICE_TASK_THROTTLE_MS 1
 
 //// Sensor Notes ////

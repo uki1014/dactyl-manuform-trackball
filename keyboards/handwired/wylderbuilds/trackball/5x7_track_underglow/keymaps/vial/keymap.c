@@ -1,6 +1,5 @@
 #include QMK_KEYBOARD_H
 #include "5x7_track_underglow.h"
-#include "print.h"
 
 #define _QWERTY 0
 #define _LOWER 1
@@ -45,13 +44,45 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         )
 };
 
-//#ifdef RGBLIGHT_ENABLE
-//void keyboard_post_init_user(void) {
-//    rgblight_enable_noeeprom(); // Enables RGB, without saving settings
-//    rgblight_sethsv_noeeprom(HSV_PURPLE);
-//    rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+#ifdef RGBLIGHT_ENABLE
+// Light LEDs 6 to 9 and 12 to 15 red when caps lock is active. Hard to ignore!
+const rgblight_segment_t PROGMEM querty_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {9, 3, HSV_RED},       // Light 4 LEDs, starting with LED 6
+    {21, 3, HSV_RED}      // Light 4 LEDs, starting with LED 6
+);
+// Light LEDs 11 & 12 in purple when keyboard layer 2 is active
+const rgblight_segment_t PROGMEM lower_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {9, 3, HSV_BLUE},
+    {21, 3, HSV_BLUE}
+);
+// Light LEDs 9 & 10 in cyan when keyboard layer 1 is active
+const rgblight_segment_t PROGMEM raise_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {9, 3, HSV_YELLOW},
+    {21, 3, HSV_YELLOW}
+);
+
+const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
+    querty_layer,    // Overrides caps lock layer
+    lower_layer,    // Overrides other layers
+    raise_layer     // Overrides other layers
+);
+
+//bool led_update_user(led_t led_state) {
+//    rgblight_set_layer_state(0, led_state.caps_lock);
+//    return true;
 //}
-//#endif
+
+layer_state_t default_layer_state_set_user(layer_state_t state) {
+    rgblight_set_layer_state(0, layer_state_cmp(state, _QWERTY));
+    return state;
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    rgblight_set_layer_state(1, layer_state_cmp(state, _LOWER));
+    rgblight_set_layer_state(2, layer_state_cmp(state, _RAISE));
+    return state;
+}
+#endif
 
 void keyboard_post_init_user(void) {
 #ifdef CONSOLE_ENABLE
@@ -67,10 +98,10 @@ void keyboard_post_init_user(void) {
 #endif
 //    rgblight_enable();
 #ifdef RGBLIGHT_ENABLE
-    print("ENABLING RGB");
+    rgblight_layers = my_rgb_layers;
     rgblight_enable_noeeprom(); // Enables RGB, without saving settings
     rgblight_sethsv_noeeprom_cyan();
-    rgblight_mode_noeeprom(1);
+    rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
 #endif
 
 }

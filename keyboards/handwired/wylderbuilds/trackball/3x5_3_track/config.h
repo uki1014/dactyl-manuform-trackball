@@ -21,20 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Communication
 // #define USE_I2C
 #define USE_SERIAL
-#define SERIAL_USART_FULL_DUPLEX
-#define SERIAL_USART_TX_PIN GP0
-#define SERIAL_USART_RX_PIN GP1
-#define SERIAL_PIO_USE_PIO0
-#define SERIAL_USART_TIMEOUT     100  // USART driver timeout. default 100
-#define SERIAL_USART_SPEED 921600
-#define SERIAL_USART_PIN_SWAP
-
-#define SPLIT_HAND_PIN      GP10  // high = left, low = right
-#define	SPLIT_HAND_PIN_LOW_IS_LEFT
-
-#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
-#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 200U
-#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_LED_MASK 0U
 
 /* key matrix size */
 // Rows are doubled-up
@@ -42,8 +28,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COLS 5
 
 // wiring of each half
-#define MATRIX_COL_PINS { GP2, GP3, GP4, GP5, GP6 }
-#define MATRIX_ROW_PINS { GP29, GP28, GP27, GP26 }
+#define MATRIX_COL_PINS { C6, D7, E6, B4, B5 }
+#define MATRIX_ROW_PINS { B1, B3, B2, B6 }
 
 #define DIODE_DIRECTION COL2ROW
 
@@ -56,8 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 //#undef LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
-#define LOCKING_SUPPORT_ENABLE
-// Locking resynchronize hack
-#define LOCKING_RESYNC_ENABLE
-// Enables This makes it easier for fast typists to use dual-function keys
-#define PERMISSIVE_HOLD
+#undef LOCKING_RESYNC_ENABLE
+
+/* Enables This makes it easier for fast typists to use dual-function keys */
+#undef PERMISSIVE_HOLD

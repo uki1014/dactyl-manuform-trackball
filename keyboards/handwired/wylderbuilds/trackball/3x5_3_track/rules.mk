@@ -1,9 +1,8 @@
 # MCU name
-MCU = RP2040
-BOOTLOADER = rp2040
-SERIAL_DRIVER = vendor
-F_CPU = 8000000
-SPLIT_KEYBOARD = yes
+MCU = atmega32u4
+
+# Bootloader selection
+BOOTLOADER = caterina
 
 # Build Options
 #   change yes to no to disable
@@ -20,8 +19,9 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 
 RGB_MATRIX_ENABLE = no     # Enable WS2812 RGB matrix
 #RGB_MATRIX_DRIVER = WS2812
+SPLIT_KEYBOARD = yes
 
 #RGBLIGHT_SUPPORTED = yes
 #RGB_MATRIX_SUPPORTED = yes
 
-#LAYOUTS = split_3x5_3
+LAYOUTS = split_3x5_3

@@ -32,14 +32,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_1,    KC_2,    KC_3,    KC_4,    KC_5,             KC_6,    KC_7,    KC_8,    KC_9,    KC_0,
         S(KC_9), S(KC_0), KC_LCBR, KC_RCBR, KC_EQL,           KC_MINS, KC_4,    KC_5,    KC_6,    KC_QUOT,
         QK_RBT,  QK_BOOT, KC_LBRC, KC_RBRC, ____,             ____,    KC_1,    KC_2,    KC_3,    ____,
-                                      ____,  QK_BOOT,      ____, ____
+                                      ____,  ____,      ____, ____
             ),
 
     [_LOWER] = LAYOUT_split_3x5_2(
         KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,            KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,
-        S(KC_9), S(KC_0), KC_LBRC,  KC_RBRC,KC_EQL,             ____,    KC_MINS, KC_EQL,  KC_PIPE, ____,
+        S(KC_9), S(KC_0), KC_LBRC,  KC_RBRC,KC_EQL,             ____,    KC_MINS, KC_EQL,  KC_PIPE, QK_BOOT,
         ____,    ____,    ____,    ____,    ____,               ____,    KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,
-                                         ____,  ____,      QK_BOOT, ____
+                                         ____,  ____,      ____, ____
 
         )
 };

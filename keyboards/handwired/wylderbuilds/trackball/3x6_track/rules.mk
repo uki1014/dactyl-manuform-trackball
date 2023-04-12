@@ -7,3 +7,4 @@ MOUSEKEY_ENABLE = yes
 CONSOLE_ENABLE = no
 #COMMAND_ENABLE = yes
 BOOTMAGIC_ENABLE = yes
+NKRO_ENABLE = yes           # Enable N-Key Rollover

@@ -1,7 +1,7 @@
 #include QMK_KEYBOARD_H
-#include "3x5_track.h"
+#include "3x6_track.h"
 
-#define _COLEMAK 0
+#define _QWERTY 0
 #define _LOWER 1
 #define _RAISE 2
 

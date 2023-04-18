@@ -6,8 +6,7 @@
   "layouts": {
     "keymap": [
       {
-        "name": "Wylderbuilds 5x7 Standard Right Trackball",
-        "author": "https://wylderbuilds.com"
+        "name": "Wylderbuilds 5x7 Trackball Carbonfet"
       },
       [
         {
@@ -187,24 +186,17 @@
           "x": 6.75
         },
         "4,5",
-        "4,6"
-      ],
-      [
-        {
-          "r": -15,
-          "y": 3,
-          "x": 5.25
-        },
-        "5,5",
+        "4,6",
         "5,6"
       ],
       [
         {
-          "r": -13,
-          "x": 5.75
+          "y": 0.25,
+          "x": 6.75
         },
         "5,3",
-        "5,4"
+        "5,4",
+        "5,5"
       ]
     ]
   }

@@ -6,8 +6,7 @@
   "layouts": {
     "keymap": [
       {
-        "name": "Wylderbuilds 6x7 Standard Right Trackball",
-        "author": "https://wylderbuilds.com"
+        "name": "Wylderbuilds 6x7 Trackball Right 4-key Arc Left"
       },
       [
         {
@@ -218,25 +217,10 @@
           "y": -4.25,
           "x": 6.75
         },
-        "5,5",
-        "5,6"
-      ],
-      [
-        {
-          "r": -15,
-          "y": 3,
-          "x": 4.5
-        },
+        "6,3",
+        "6,4",
         "6,5",
         "6,6"
-      ],
-      [
-        {
-          "r": -13,
-          "x": 5.25
-        },
-        "6,3",
-        "6,4"
       ]
     ]
   }

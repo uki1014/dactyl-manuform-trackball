@@ -15,6 +15,7 @@
 
 #define USE_SERIAL
 #define SPLIT_HAND_PIN      GP26  // high = left, low = right
+#define SPLIT_LAYER_STATE_ENABLE
 //#define	SPLIT_HAND_PIN_LOW_IS_LEFT
 //#define SPLIT_HAND_MATRIX_GRID GP9, GP8
 //#define MASTER_RIGHT
@@ -60,8 +61,13 @@
 #define CHARYBDIS_SNIPING_DPI_CONFIG_STEP 200
 
 //// Rotary Encoder ////
-// GP21
-// GP22
+#define ENCODERS_PAD_A { }
+#define ENCODERS_PAD_B { }
+#define ENCODER_RESOLUTIONS { }
+
+#define ENCODERS_PAD_A_RIGHT { GP27 }
+#define ENCODERS_PAD_B_RIGHT { GP28 }
+#define ENCODER_RESOLUTIONS_RIGHT { 2 }
 
 //// Sensor Notes ////
 //// Pi Pico pins ////
@@ -83,10 +89,13 @@
 //#endif
 
 //// OLED Pins and Driver
+#define SPLIT_OLED_ENABLE
+#define SPLIT_MODS_ENABLE
+//// OLED Pins and Driver
 #ifdef OLED_ENABLE
 #define I2C_DRIVER I2CD1
-#define I2C1_SDA_PIN GP12
-#define I2C1_SCL_PIN GP13
+#define I2C1_SDA_PIN GP16
+#define I2C1_SCL_PIN GP17
 // OLED Options
 #define SPLIT_OLED_ENABLE
 #define SPLIT_WPM_ENABLE

@@ -31,7 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______,KC_HOME,KC_PGUP,KC_PGDN,KC_END ,KC_LPRN,                        KC_RPRN, KC_P4 , KC_P5 , KC_P6 ,KC_MINS,KC_PIPE, _______,
         _______, _______,_______,_______,_______,_______,_______,                        _______, KC_P1 , KC_P2 , KC_P3 ,KC_EQL ,KC_UNDS, _______,
                                  _______,KC_PSCR,                                                        _______, KC_P0,
-                                                    _______,_______,_______,_______,         _______,
+                                                    SNIPING,DRGSCRL,KC_BTN1,KC_BTN3,         _______,
                                                                                              _______,
                                                                                     QK_BOOT, _______
         ),

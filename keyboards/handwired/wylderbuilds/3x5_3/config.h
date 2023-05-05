@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SERIAL_USART_SPEED 921600
 #define SERIAL_USART_PIN_SWAP
 
-#define SPLIT_HAND_PIN      GP10  // high = left, low = right
+#define SPLIT_HAND_PIN      GP26  // high = left, low = right
 #define	SPLIT_HAND_PIN_LOW_IS_LEFT
 
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
@@ -38,12 +38,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* key matrix size */
 // Rows are doubled-up
-#define MATRIX_ROWS 8
+#define MATRIX_ROWS 10
 #define MATRIX_COLS 5
 
 // wiring of each half
 #define MATRIX_COL_PINS { GP2, GP3, GP4, GP5, GP6 }
-#define MATRIX_ROW_PINS { GP29, GP28, GP27, GP26 }
+#define MATRIX_ROW_PINS { GP9, GP10, GP11, GP12, GP13 }
 
 #define DIODE_DIRECTION COL2ROW
 

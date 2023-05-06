@@ -22,7 +22,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_HOME,KC_PGUP,KC_PGDN,KC_END ,KC_LPRN,                  KC_RPRN, KC_P4 , KC_P5 , KC_P6 ,KC_MINS,
         _______,_______,_______,_______,_______,                  _______, KC_P1 , KC_P2 , KC_P3 ,KC_EQL ,
                          KC_LBRC, KC_RBRC,                                         KC_EQL, KC_BSLASH,
-                               _______, KC_BTN1, KC_BTN3,    QK_BOOT, _______, _______
+                               DRGSCRL, KC_BTN1, KC_BTN3,    QK_BOOT, _______, _______
         ),
 
     [_RAISE] = LAYOUT_4x5(

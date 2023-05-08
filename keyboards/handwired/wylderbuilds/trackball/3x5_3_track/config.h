@@ -34,7 +34,7 @@
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 200U
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_LED_MASK 0U
 
-/* key matrix size */
+/* key matrix size *
 // Columns are doubled-up
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 5

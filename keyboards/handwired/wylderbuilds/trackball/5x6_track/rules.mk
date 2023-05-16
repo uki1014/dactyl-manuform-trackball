@@ -9,9 +9,9 @@ CONSOLE_ENABLE = no
 BOOTMAGIC_ENABLE = yes
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 NKRO_ENABLE = yes           # Enable N-Key Rollover
-OLED_ENABLE = yes
-WPM_ENABLE = yes
-ENCODER_ENABLE = yes
+OLED_ENABLE = NO
+WPM_ENABLE = NO
+ENCODER_ENABLE = NO
 ENCODER_MAP_ENABLE = no
 
-OPT_DEFS += -DHAL_USE_I2C=TRUE
+#OPT_DEFS += -DHAL_USE_I2C=TRUE

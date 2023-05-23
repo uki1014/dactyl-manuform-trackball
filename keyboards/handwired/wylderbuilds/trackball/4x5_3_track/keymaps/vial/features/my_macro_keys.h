@@ -1,28 +1,3 @@
-#include QMK_KEYBOARD_H
-#include "4x5_3_track.h"
-
-#include <stdio.h>
-#include "features/my_functions.h"
-// #include "features/swipe_gesture.h"
-// #include "features/auto_click_layer.h"
-// #include "features/my_macro_keys.h"
-
-// clang-format on
-
-// layer_state_t layer_state_set_user(layer_state_t state)
-// {
-//   // レイヤーが1または3の場合、スクロールモードが有効になる
-//   // keyball_set_scroll_mode(get_highest_layer(state) == 3);
-//   keyball_set_scroll_mode(get_highest_layer(state) == 1 || get_highest_layer(state) == 3);
-//   return state;
-// }
-
-// ------------------------
-
-/////////////////////////////
-/// miniZoneの実装 ここから ///
-////////////////////////////
-
 enum custom_keycodes {
     KC_MY_BTN1 = SAFE_RANGE,
     KC_MY_BTN2,
@@ -86,14 +61,14 @@ void eeconfig_init_user(void) {
     eeconfig_update_user(user_config.raw);
 }
 
-// クリック用のレイヤーを有効にする。　Enable layers for clicks
+// クリック用のレイヤーを有効にする。Enable layers for clicks
 void enable_click_layer(void) {
     layer_on(click_layer);
     click_timer = timer_read();
     state = CLICKABLE;
 }
 
-// クリック用のレイヤーを無効にする。 Disable layers for clicks.
+// クリック用のレイヤーを無効にする。Disable layers for clicks.
 void disable_click_layer(void) {
     state = NONE;
     layer_off(click_layer);
@@ -330,134 +305,4 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     mouse_report.v = current_v;
 
     return mouse_report;
-}
-
-/////////////////////////////
-/// miniZoneの実装 ここまで ///
-////////////////////////////
-
-#define _LAYER0 0
-#define _LAYER1 1
-#define _LAYER2 2
-#define _LAYER3 3
-
-#define KC_ML KC_MS_LEFT
-#define KC_MR KC_MS_RIGHT
-#define KC_MU KC_MS_UP
-#define KC_MD KC_MS_DOWN
-#define KC_MB1 KC_MS_BTN1
-#define KC_MB2 KC_MS_BTN2
-
-#define LAYER1 MO(_LAYER1)
-#define LAYER2 MO(_LAYER2)
-#define LAYER3 MO(_LAYER3)
-#define KC_SHIFT_SPC MT(MOD_LSFT, KC_SPC) // Tap Space, Hold Shift
-
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    /* Layer0 (qwerty)
-     * ,----------------------------------,                             ,----------------------------------,
-     * |   q  |   w  |   e  |   r  |   t  |                             |   y  |   u  |   i  |   o  |   p  |
-     * |------+------+------+------+------|                             |-------------+------+------+------|
-     * |   a  |   s  |   d  |   f  |   g  |                             |   h  |   j  |   k  |   l  |   ;  |
-     * |------+------+------+------+------|                             |------|------+------+------+------|
-     * |   z  |   x  |   c  |   v  |   b  |                             |   n  |   m  |   ,  |   .  |   '  |
-     * |------+------+------+-------------,                             ,-------------+------+------+------,
-     *        | CTRL |LAYER2|                                                         |   /  | SHIFT|
-     *        '------+------'--------------------'               '-------------+------'
-     *                      |      |      |      |               |      |      |      |
-     *                      | CMD  | SPACE|LAYER3|               |  BS  | ENTER|LAYER1|
-     *                      |      |      |      |               |      |      |      |
-     *                      '------+------+------'               '------+------+------'
-     */
-    [_LAYER0] = LAYOUT_4x5(
-        KC_Q, KC_W, KC_E, KC_R, KC_T,                         KC_Y, KC_U, KC_I,   KC_O,   KC_P,
-        KC_A, KC_S, KC_D, KC_F, KC_G,                         KC_H, KC_J, KC_K,   KC_L,   KC_SCLN,
-        KC_Z, KC_X, KC_C, KC_V, KC_B,                         KC_N, KC_M, KC_COMM,KC_DOT ,KC_QUOT,
-              KC_LCTL, LAYER2,                                           KC_SLSH, KC_RSFT,
-                         KC_LGUI, KC_SHIFT_SPC, LAYER3,      KC_BSPC, KC_ENT, LAYER1
-        ),
-
-    /* Layer1
-     * ,----------------------------------,                             ,----------------------------------,
-     * |      |      |  \   |  *   |  +   |                             |  <   |  @   |  (   |  )   |  &   |
-     * |------+------+------+------+------|                             |-------------+------+------+------|
-     * | TAB  |  ^   |  #   |  /   |  -   |                             |  >   |  =   |  {   |  }   |  $   |
-     * |------+------+------+------+------|                             |------|------+------+------+------|
-     * |      |      |  _   |  |   |  %   |                             |  ~   |  `   |  [   |  ]   |  !   |
-     * |------+------+------+-------------,                             ,-------------+------+------+------,
-     *        |      |      |                                                         | CMD+CTRL+Q  |
-     *        '------+------'--------------------'               '-------------+------'
-     *                      |      |      |      |               |      |      |      |
-     *                      |      |      |      |               |      |      |      |
-     *                      |      |      |      |               |      |      |      |
-     *                      '------+------+------'               '------+------+------'
-     */
-    [_LAYER1] = LAYOUT_4x5(
-        _______, _______, KC_BSLS, KC_ASTR,  KC_PLUS,          KC_LABK, KC_AT,   KC_LPRN, KC_RPRN, KC_AMPR,
-        KC_TAB,  KC_CIRC, KC_HASH, KC_SLSH,  KC_MINS,          KC_RABK, KC_PEQL, KC_LCBR, KC_RCBR, KC_DLR,
-        _______, _______, KC_PERC, KC_PIPE,  KC_UNDS,          KC_TILD, KC_GRV,  KC_LBRC, KC_RBRC, KC_EXLM,
-                 _______, _______,                                               RCTL(KC_RGUI), KC_Q,
-                          _______, _______, _______,           _______,_______, _______
-    ),
-
-    /* Layer2
-     * ,----------------------------------,                             ,----------------------------------,
-     * | PgDwn| PgUp |  mup | Home | End  |                             |WRight| WUp  |  up  | WDown|WLeft |
-     * |------+------+------+------+------|                             |-------------+------+------+------|
-     * | SHIFT| mleft| mdown|mright| CMD  |                             |  ^   | left | down |right |  $   |
-     * |------+------+------+------+------|                             |------|------+------+------+------|
-     * |Ctr+Al| F7   | F12  |Alt+SP| Alt  |                             |LANG2 | TAB  | mbtn2| mbtn |CTR+TB|
-     * |------+------+------+-------------,                             ,-------------+------+------+------,
-     *        |      |      |                                                         |      |      |
-     *        '------+------'--------------------'               '-------------+------'
-     *                      |      |      |      |               |      |      |      |
-     *                      |      |      |      |               |      |      |      |
-     *                      |      |      |      |               |      |      |      |
-     *                      '------+------+------'               '------+------+------'
-     */
-    [_LAYER2] = LAYOUT_4x5(
-        KC_PGDN,      KC_PGUP, KC_MY_SCR, KC_HOME,   KC_END,        KC_MY_BTN1, KC_MY_BTN2, KC_UP, KC_WH_U, KC_WH_D,
-        KC_LSFT,      _______, KC_WH_D,   KC_WH_U,   KC_LGUI,       KC_CIRC,    KC_LEFT,   KC_DOWN , KC_RGHT ,KC_DLR,
-        LALT(KC_LCTL),KC_F7,   KC_F12,    LALT(KC_SPC),KC_LALT,     KC_LNG2,    KC_TAB, _______ ,_______ ,RCTL(KC_TAB),
-                      _______, _______,                                          _______,  _______,
-                               _______, _______, QK_BOOT,           KC_DEL, KC_LNG1, KC_ESC
-        ),
-
-    /* Layer3
-     * ,----------------------------------,                             ,----------------------------------,
-     * |      |      |      |      |      |                             |  1   |  2   |  3   |  4   |  5   |
-     * |------+------+------+------+------|                             |-------------+------+------+------|
-     * |CMDSHI| Prev | Pause| Next | CMD  |                             |  6   |  7   |  8   |  9   |  0   |
-     * |------+------+------+------+------|                             |------|------+------+------+------|
-     * |      | VOL- | MUTE | VOL+ | Alt  |                             |Ctr+4 |      |      |      |      |
-     * |------+------+------+-------------,                             ,-------------+------+------+------,
-     *        |             |                                                         |      |      |
-     *        '------+------'--------------------'               '-------------+------'
-     *                      |      |      |      |               |      |      |      |
-     *                      |      |      |      |               |      |      |      |
-     *                      |      |      |      |               |      |      |      |
-     *                      '------+------+------'               '------+------+------'
-     */
-    [_LAYER3] = LAYOUT_4x5(
-        _______, _______, _______, _______,  _______,                    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,
-        LGUI(KC_LSFT), KC_MPRV, KC_MPLY, KC_MNXT,  KC_LGUI,              KC_6,    KC_7,    KC_8,    KC_9,    KC_0,
-        _______, KC_VOLD, KC_MUTE, KC_VOLU,  KC_LALT,                    RCTL(KC_4), _______, _______, _______, _______,
-                 _______, _______,                                                            _______, _______,
-                                   _______, _______, _______,              _______, _______, _______
-    )
-};
-
-void keyboard_post_init_user(void) {
-user_config.raw = eeconfig_read_user();
-#ifdef CONSOLE_ENABLE
-    debug_enable=true;
-    debug_matrix=true;
-    debug_keyboard=true;
-    debug_mouse=true;
-#else
-    debug_enable=false;
-    debug_matrix=false;
-    debug_keyboard=false;
-    debug_mouse=false;
-#endif
 }
